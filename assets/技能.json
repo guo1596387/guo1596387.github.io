@@ -1,0 +1,356 @@
+{
+  "active_skill": [
+    {
+      "name": "天马流星拳",
+      "type": "主动攻击",
+      "star0": {
+        "trigger_rate": "10%",
+        "effect": "连续攻击2次"
+      },
+      "star10": {
+        "trigger_rate": "30%",
+        "effect": "连续攻击3次，每次伤害+15%"
+      },
+      "notes": "新手入门连击技能，泛用性强"
+    },
+    {
+      "name": "龙卷风",
+      "type": "主动攻击",
+      "star0": {
+        "trigger_rate": "8%",
+        "effect": "造成范围伤害，小幅降低对方命中"
+      },
+      "star10": {
+        "trigger_rate": "25%",
+        "effect": "高额范围伤害，降低对方30%命中持续2回合"
+      },
+      "notes": "群体压制技能，克制高命中流派"
+    },
+    {
+      "name": "无影手",
+      "type": "主动攻击",
+      "star0": {
+        "trigger_rate": "12%",
+        "effect": "无视部分防御"
+      },
+      "star10": {
+        "trigger_rate": "35%",
+        "effect": "完全无视防御，伤害+20%"
+      },
+      "notes": "肉盾克星，后期核心输出技"
+    },
+    {
+      "name": "排山倒海",
+      "type": "主动攻击",
+      "star0": {
+        "trigger_rate": "7%",
+        "effect": "强力一击，有概率击退对手"
+      },
+      "star10": {
+        "trigger_rate": "22%",
+        "effect": "巨额伤害，50%概率让对方跳过1回合"
+      },
+      "notes": "高伤强控，翻盘技能"
+    },
+    {
+      "name": "佛山无影脚",
+      "type": "主动攻击",
+      "star0": {
+        "trigger_rate": "9%",
+        "effect": "攻击后提升自身少量闪避"
+      },
+      "star10": {
+        "trigger_rate": "28%",
+        "effect": "伤害+15%，提升自身25%闪避持续1回合"
+      },
+      "notes": "闪避流标配主动技"
+    },
+    {
+      "name": "猛虎扑食",
+      "type": "主动攻击",
+      "star0": {
+        "trigger_rate": "10%",
+        "effect": "暴击率小幅提升"
+      },
+      "star10": {
+        "trigger_rate": "32%",
+        "effect": "必定暴击，暴击伤害+30%"
+      },
+      "notes": "暴击流核心技能"
+    }
+  ],
+  "passive_skill": [
+    {
+      "name": "身手敏捷",
+      "type": "被动生存",
+      "star0": {
+        "permanent_effect": "闪避率+8%"
+      },
+      "star10": {
+        "permanent_effect": "闪避率+25%，受到攻击时有10%概率反击"
+      },
+      "notes": "闪避流派基础被动"
+    },
+    {
+      "name": "皮糙肉厚",
+      "type": "被动生存",
+      "star0": {
+        "permanent_effect": "受到伤害-10%"
+      },
+      "star10": {
+        "permanent_effect": "受到伤害-30%，血量上限+15%"
+      },
+      "notes": "肉盾流派核心被动"
+    },
+    {
+      "name": "力大无穷",
+      "type": "被动输出",
+      "star0": {
+        "permanent_effect": "所有伤害+10%"
+      },
+      "star10": {
+        "permanent_effect": "所有伤害+30%，普攻有15%连击"
+      },
+      "notes": "通用增伤被动，全流派可用"
+    },
+    {
+      "name": "精准打击",
+      "type": "被动输出",
+      "star0": {
+        "permanent_effect": "命中率+12%"
+      },
+      "star10": {
+        "permanent_effect": "命中率+35%，克制高闪避目标"
+      },
+      "notes": "针对闪避鹅必备被动"
+    },
+    {
+      "name": "钢筋铁骨",
+      "type": "被动生存",
+      "star0": {
+        "permanent_effect": "减少暴击伤害15%"
+      },
+      "star10": {
+        "permanent_effect": "完全免疫暴击伤害，反弹10%伤害"
+      },
+      "notes": "反暴击专用被动"
+    },
+    {
+      "name": "嗜血",
+      "type": "被动续航",
+      "star0": {
+        "permanent_effect": "攻击吸取5%生命值"
+      },
+      "star10": {
+        "permanent_effect": "攻击吸取20%生命值，过量回血转化为护盾"
+      },
+      "notes": "续航流派核心，持久战神器"
+    }
+  ],
+  "assist_skill": [
+    {
+      "name": "装死",
+      "type": "辅助保命",
+      "star0": {
+        "trigger_rate": "15%",
+        "effect": "濒死时假死，规避一次致命攻击"
+      },
+      "star10": {
+        "trigger_rate": "40%",
+        "effect": "濒死必定触发装死，恢复20%血量"
+      },
+      "notes": "全民通用神级辅助，人手必备"
+    },
+    {
+      "name": "霸气",
+      "type": "辅助减益抵抗",
+      "star0": {
+        "trigger_rate": "20%",
+        "effect": "抵挡一次负面状态"
+      },
+      "star10": {
+        "trigger_rate": "50%",
+        "effect": "全程免疫眩晕、魅惑、流血等负面效果"
+      },
+      "notes": "抵抗控制类核心技能"
+    },
+    {
+      "name": "反震",
+      "type": "辅助反弹",
+      "star0": {
+        "trigger_rate": "18%",
+        "effect": "受到近身攻击反弹10%伤害"
+      },
+      "star10": {
+        "trigger_rate": "45%",
+        "effect": "受到近身攻击反弹40%伤害，远程攻击也可反弹20%"
+      },
+      "notes": "反击流、肉盾流常用"
+    },
+    {
+      "name": "偷袭",
+      "type": "辅助增益",
+      "star0": {
+        "trigger_rate": "12%",
+        "effect": "出手顺序提前，小幅增伤"
+      },
+      "star10": {
+        "trigger_rate": "38%",
+        "effect": "优先出手，首次攻击伤害+35%"
+      },
+      "notes": "速攻流先手技能"
+    },
+    {
+      "name": "妙手空空",
+      "type": "辅助功能",
+      "star0": {
+        "trigger_rate": "10%",
+        "effect": "偷取对方一层小幅增益"
+      },
+      "star10": {
+        "trigger_rate": "33%",
+        "effect": "偷取对方所有增益效果，并附加给自己"
+      },
+      "notes": "克制buff流对手"
+    },
+    {
+      "name": "疗伤",
+      "type": "辅助续航",
+      "star0": {
+        "trigger_rate": "14%",
+        "effect": "回合开始恢复少量血量"
+      },
+      "star10": {
+        "trigger_rate": "42%",
+        "effect": "每回合稳定恢复25%血量，解除自身负面状态"
+      },
+      "notes": "纯续航技能，适合消耗战"
+    }
+  ],
+  "god_skill": [
+    {
+      "name": "大海无量",
+      "type": "神技·全屏攻击",
+      "star0": {
+        "trigger_rate": "6%",
+        "effect": "全屏水系伤害，驱散敌方增益"
+      },
+      "star10": {
+        "trigger_rate": "20%",
+        "effect": "巨额全屏伤害，清空敌方所有buff，自身免伤1回合"
+      },
+      "notes": "顶级群体神技，团战、闯关首选"
+    },
+    {
+      "name": "如来神掌",
+      "type": "神技·单体必杀",
+      "star0": {
+        "trigger_rate": "5%",
+        "effect": "无视一切防御造成高额伤害"
+      },
+      "star10": {
+        "trigger_rate": "18%",
+        "effect": "绝对伤害，无视装死、霸气、护盾，附带重伤效果"
+      },
+      "notes": "最强单体必杀，克制所有保命技能"
+    },
+    {
+      "name": "黯然销魂掌",
+      "type": "神技·控制输出",
+      "star0": {
+        "trigger_rate": "7%",
+        "effect": "高伤+概率眩晕"
+      },
+      "star10": {
+        "trigger_rate": "24%",
+        "effect": "超高伤害，必定眩晕2回合，禁止对方回血"
+      },
+      "notes": "强控+禁疗，持久战天敌"
+    },
+    {
+      "name": "斗转星移",
+      "type": "神技·防御反击",
+      "star0": {
+        "trigger_rate": "8%",
+        "effect": "转移部分伤害给对手"
+      },
+      "star10": {
+        "trigger_rate": "26%",
+        "effect": "完全反弹所有伤害，同时解除自身所有负面"
+      },
+      "notes": "防御系天花板，以彼之道还施彼身"
+    },
+    {
+      "name": "九阳神功",
+      "type": "神技·全能增益",
+      "star0": {
+        "trigger_rate": "常驻",
+        "effect": "全属性小幅提升，缓慢回血"
+      },
+      "star10": {
+        "trigger_rate": "常驻",
+        "effect": "攻击、防御、闪避、命中全面大幅提升，每秒回血，免疫灼烧"
+      },
+      "notes": "常驻全能神技，综合战力提升最大"
+    }
+  ],
+  "special_skill": [
+    {
+      "name": "斗神意志",
+      "type": "斗神塔专属",
+      "star0": {
+        "permanent_effect": "每层塔增伤2%"
+      },
+      "star10": {
+        "permanent_effect": "每层塔增伤5%，血量越低伤害越高"
+      },
+      "notes": "斗神塔限定，爬塔专用技能"
+    },
+    {
+      "name": "节日祝福",
+      "type": "活动限定",
+      "star0": {
+        "trigger_rate": "10%",
+        "effect": "随机获得一项临时增益"
+      },
+      "star10": {
+        "trigger_rate": "30%",
+        "effect": "同时获得攻击、防御、闪避三重增益，持续3回合"
+      },
+      "notes": "节日活动限时技能"
+    },
+    {
+      "name": "武林盟主",
+      "type": "排位专属",
+      "star0": {
+        "permanent_effect": "对战玩家伤害+5%"
+      },
+      "star10": {
+        "permanent_effect": "对战玩家伤害+20%，减免玩家造成伤害15%"
+      },
+      "notes": "武林排位赛专属被动"
+    },
+    {
+      "name": "元素掌控·火",
+      "type": "元素专属",
+      "star0": {
+        "permanent_effect": "附加灼烧效果"
+      },
+      "star10": {
+        "permanent_effect": "普攻必附高额灼烧，灼烧伤害无视防御"
+      },
+      "notes": "火系流派专属"
+    },
+    {
+      "name": "元素掌控·冰",
+      "type": "元素专属",
+      "star0": {
+        "permanent_effect": "减速对手"
+      },
+      "star10": {
+        "permanent_effect": "大幅降低对方出手速度与暴击率"
+      },
+      "notes": "冰系控制流派专属"
+    }
+  ]
+}
