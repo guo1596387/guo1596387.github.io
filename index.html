@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>子夜大乐斗</title>
+    <style>
+      /* ===================== 启动加载层(boot-loader) =====================
+         纯 CSS + 末尾的小段内嵌 JS,不依赖 Vue/打包产物
+         - 背景:/assets/bg/loading.jpg(全屏 cover)
+         - 进度条:用 /assets/bg/beforeEnterGameLoading.png 作 UI 框,
+                  顶部红框当作"空进度条轨道",内嵌金色渐变 fill 覆盖其上
+         - 100% 后加 .fade-out,1.2s 淡出,然后从 DOM 移除
+         - 真实游戏里可以把"假进度"换成 font/asset 加载的回调
+      */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        color: #f1f5f9;
+        font-family:
+          "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif;
+        overflow: hidden;
+      }
+
+      #boot-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000;
+        transition: opacity 1.2s ease;
+      }
+      #boot-loader.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .boot-bg {
+        position: absolute;
+        inset: 0;
+        background: url("/assets/bg/loading.jpg") center / cover no-repeat;
+        filter: brightness(0.78) saturate(1.05);
+      }
+      .boot-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.35) 0%,
+          rgba(0, 0, 0, 0.1) 40%,
+          rgba(0, 0, 0, 0.55) 100%
+        );
+      }
+
+      .boot-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        padding: 0 24px;
+        user-select: none;
+      }
+      .boot-title {
+        font-size: 64px;
+        font-weight: 900;
+        letter-spacing: 0.4em;
+        color: #f5d76e;
+        text-shadow:
+          0 0 24px rgba(245, 215, 110, 0.55),
+          0 4px 0 #8a6a2a,
+          0 0 2px #000;
+        margin-right: -0.4em; /* 抵消字间距造成的右偏 */
+      }
+      .boot-subtitle {
+        font-size: 14px;
+        color: #fde68a;
+        letter-spacing: 0.3em;
+        opacity: 0.85;
+      }
+
+      /* 进度条容器:固定 70px 高 + overflow:hidden,把 PNG 下方多余内容裁掉
+         padding 给红框留位置,让 fill 只在"内框"区域增长 */
+      .boot-progress {
+        position: relative;
+        width: min(480px, 70vw);
+        height: 70px;
+        margin-top: 12px;
+        padding: 6px 8px;
+        box-sizing: border-box;
+        overflow: hidden;
+        border-radius: 999px;
+      }
+      .boot-progress-img {
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+      }
+      /* fill 撑满 padding box(顶 bar 内框),不覆盖红框边框 */
+      .boot-progress-fill {
+        position: absolute;
+        top: 6px;
+        left: 8px;
+        width: 0;
+        height: calc(100% - 12px);
+        background: linear-gradient(
+          90deg,
+          #b91c1c 0%,
+          #f59e0b 40%,
+          #fde047 60%,
+          #f59e0b 80%,
+          #b91c1c 100%
+        );
+        background-size: 200% 100%;
+        border-radius: 999px;
+        box-shadow:
+          inset 0 0 6px rgba(255, 255, 255, 0.5),
+          0 0 10px rgba(245, 215, 110, 0.6);
+        transition: width 0.18s linear;
+        animation: boot-shimmer 1.2s linear infinite;
+      }
+      @keyframes boot-shimmer {
+        from {
+          background-position: 0% 0;
+        }
+        to {
+          background-position: 200% 0;
+        }
+      }
+
+      .boot-meta {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        font-size: 12px;
+        color: #fde68a;
+        opacity: 0.9;
+      }
+      .boot-percent {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fde047;
+        font-variant-numeric: tabular-nums;
+        min-width: 3.5em;
+        text-align: right;
+        text-shadow: 0 0 6px rgba(253, 224, 71, 0.5);
+      }
+      .boot-tip {
+        margin-top: 4px;
+        font-size: 11px;
+        color: rgba(253, 230, 138, 0.65);
+        letter-spacing: 0.15em;
+      }
+
+      /* 小屏:标题缩小 */
+      @media (max-width: 640px) {
+        .boot-title {
+          font-size: 40px;
+          letter-spacing: 0.3em;
+        }
+        .boot-subtitle {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-900 text-slate-100">
+    <!-- 启动加载层:Vite 解析 main.ts 期间显示,挂载后由 main.ts 兜底移除 -->
+    <div id="boot-loader" aria-hidden="true">
+      <div class="boot-bg"></div>
+      <div class="boot-content">
+        <div class="boot-title">大乐斗</div>
+        <div class="boot-subtitle">正在加载游戏资源…</div>
+
+        <div class="boot-progress">
+          <img
+            class="boot-progress-img"
+            src="/assets/bg/beforeEnterGameLoading.png"
+            alt="loading"
+            draggable="false"
+          />
+          <div class="boot-progress-fill" id="boot-fill"></div>
+        </div>
+
+        <div class="boot-meta">
+          <span>LOADING</span>
+          <span class="boot-percent" id="boot-percent">0%</span>
+        </div>
+        <div class="boot-tip">提示:首次加载可能需要几秒</div>
+      </div>
+    </div>
+
+    <div id="app"></div>
+
+    <!-- 预路由守卫:在 Vue/路由加载前先检查 token,无 token 直接跳 /login
+         (绕过任何 JS 框架的运行时问题,Vite/HMR/Service Worker 都不影响) -->
+    <script>
+      (function () {
+        try {
+          var path = location.pathname;
+          var token = localStorage.getItem("ncgame_token");
+          var expiresAt = Number(localStorage.getItem("ncgame_token_expires") || 0);
+          var now = Date.now();
+          var hasValidToken = token && (expiresAt === 0 || expiresAt > now);
+
+          // /login 本来就公开,其他路径都要 token
+          if (!hasValidToken && path !== "/login") {
+            var redirect = path !== "/" ? "?redirect=" + encodeURIComponent(path) : "";
+            location.replace("/login" + redirect);
+          }
+        } catch (e) {
+          // localStorage 不可用(隐私模式等)时跳过预检查,交给 Vue 守卫
+          console.warn("[pre-guard] skipped:", e);
+        }
+      })();
+    </script>
+
+    <script type="module" src="/src/main.ts"></script>
+
+    <!-- 启动加载驱动:模拟资源加载进度,100% 后淡出 -->
+    <script>
+      (function () {
+        var fill = document.getElementById("boot-fill");
+        var percent = document.getElementById("boot-percent");
+        var loader = document.getElementById("boot-loader");
+        if (!fill || !percent || !loader) return;
+
+        // 真实项目里可换成 await Promise.all([fonts.ready, ...])
+        // 这里用 setInterval 模拟一个缓动 + 抖动(像真在读资源)
+        var p = 0;
+        var timer = setInterval(function () {
+          // 越接近 100 越慢(像在等最后一个资源)
+          var step =
+            p < 60 ? 4 + Math.random() * 4 : p < 90 ? 1 + Math.random() * 2 : 0.4;
+          p = Math.min(100, p + step);
+          fill.style.width = p.toFixed(1) + "%";
+          percent.textContent = Math.floor(p) + "%";
+          if (p >= 100) {
+            clearInterval(timer);
+            // 100% 后停留 300ms,让用户清楚看到"加载完成",再淡出
+            setTimeout(function () {
+              loader.classList.add("fade-out");
+              // 1.4s = 1.2s CSS 渐变 + 0.2s 缓冲
+              setTimeout(function () {
+                if (loader.parentNode) loader.parentNode.removeChild(loader);
+              }, 1400);
+            }, 300);
+          }
+        }, 20);
+
+        // 兜底:无论什么原因卡住,8s 后强删 boot-loader,避免永久遮挡页面
+        setTimeout(function () {
+          if (loader && loader.parentNode) {
+            loader.classList.add("fade-out");
+            setTimeout(function () {
+              if (loader.parentNode) loader.parentNode.removeChild(loader);
+            }, 1400);
+          }
+        }, 8000);
+      })();
+    </script>
+  </body>
+</html>
