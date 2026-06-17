@@ -1,0 +1,1 @@
+import{_ as e}from"./index-DbkNJ1Es.js";import{o,c as t}from"./vue-BxohcPzh.js";import"./photoswipe-D7k9lYat.js";const a={},n={id:"language"};function r(c,s,_,p,i,d){return o(),t("div",n,"language设置")}const u=e(a,[["render",r]]);export{u as default};
